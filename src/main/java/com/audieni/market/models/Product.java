@@ -20,10 +20,16 @@ public class Product {
     private int id;
 
     @Column
+    private String name;
+
+    @Column
     private double price;
 
     @Column
     private int stock;
+
+    @Column
+    private String image;
 
     @OneToMany(mappedBy = "product")
     @JsonManagedReference(value = "carts_products")

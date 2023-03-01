@@ -19,7 +19,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(unique = true)
     private String email;
 
     @Column
@@ -27,6 +27,12 @@ public class User {
 
     @Column
     private String country;
+
+    public User(String email, String password, String country) {
+        this.email = email;
+        this.password = password;
+        this.country = country;
+    }
 
     @OneToMany(mappedBy = "user")
     @JsonManagedReference(value = "carts_users")
