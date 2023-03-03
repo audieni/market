@@ -38,4 +38,9 @@ public class Product {
     @OneToMany(mappedBy = "product")
     @JsonManagedReference(value = "orders_products")
     List<OrderProduct> orders;
+
+    public Product(int id, int stock) {
+        this.id = id;
+        this.stock = stock;
+    }
 }

@@ -1,5 +1,6 @@
 package com.audieni.market.models;
 
+import com.audieni.market.dtos.OrderProductDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,4 +31,9 @@ public class Order {
     @OneToMany(mappedBy = "order")
     @JsonManagedReference(value = "orders_orders_products")
     List<OrderProduct> orderProduct;
+
+    public Order(User user, List<OrderProduct> orderProduct) {
+        this.user = user;
+        this.orderProduct = orderProduct;
+    }
 }

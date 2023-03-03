@@ -28,12 +28,6 @@ public class User {
     @Column
     private String country;
 
-    public User(String email, String password, String country) {
-        this.email = email;
-        this.password = password;
-        this.country = country;
-    }
-
     @OneToMany(mappedBy = "user")
     @JsonManagedReference(value = "carts_users")
     List<Cart> carts;
@@ -41,4 +35,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonManagedReference(value = "orders_users")
     List<Order> orders;
+
+    public User(String email, String password, String country) {
+        this.email = email;
+        this.password = password;
+        this.country = country;
+    }
 }

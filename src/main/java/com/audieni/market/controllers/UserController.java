@@ -22,7 +22,6 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody UserInfo userInfo, HttpSession session)
             throws InvalidCredentialsException {

@@ -29,4 +29,10 @@ public class OrderProduct {
     @JoinColumn(name = "product_id")
     @JsonBackReference(value = "orders_products")
     private Product product;
+
+    public OrderProduct(Order order, Product product, int stock) {
+        this.order = order;
+        this.product = product;
+        this.stock = stock;
+    }
 }

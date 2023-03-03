@@ -29,4 +29,10 @@ public class Cart {
     @JoinColumn(name = "product_id")
     @JsonBackReference(value = "carts_products")
     private Product product;
+
+    public Cart(User user, Product product, int stock) {
+        this.user = user;
+        this.product = product;
+        this.stock = stock;
+    }
 }
