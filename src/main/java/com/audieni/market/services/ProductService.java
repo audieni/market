@@ -20,7 +20,7 @@ public class ProductService {
     }
 
     public List<Product> findAll() {
-        return productRepository.findAll(Sort.by("id"));
+        return productRepository.findAll();
     }
 
     public Product findById(int id) {

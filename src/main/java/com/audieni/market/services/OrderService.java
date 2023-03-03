@@ -1,14 +1,11 @@
 package com.audieni.market.services;
 
-import com.audieni.market.dtos.OrderDto;
-import com.audieni.market.dtos.OrderProductDto;
 import com.audieni.market.models.Order;
 import com.audieni.market.models.OrderProduct;
 import com.audieni.market.repositories.OrderProductRepository;
 import com.audieni.market.repositories.OrderRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
