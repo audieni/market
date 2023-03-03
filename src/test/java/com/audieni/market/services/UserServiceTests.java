@@ -1,6 +1,5 @@
 package com.audieni.market.services;
 
-import com.audieni.market.dtos.UserDto;
 import com.audieni.market.models.User;
 import com.audieni.market.repositories.UserRepository;
 import org.junit.jupiter.api.Assertions;
@@ -13,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTest {
+class UserServiceTests {
     public UserService sut;
 
     @Mock

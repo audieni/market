@@ -3,11 +3,13 @@ package com.audieni.market.models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Builder
 @Data
 @Entity
 @AllArgsConstructor
@@ -41,6 +43,12 @@ public class Product {
 
     public Product(int id, int stock) {
         this.id = id;
+        this.stock = stock;
+    }
+
+    public Product(int id, String name, int stock) {
+        this.id = id;
+        this.name = name;
         this.stock = stock;
     }
 }

@@ -3,11 +3,13 @@ package com.audieni.market.models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Builder
 @Data
 @Entity
 @AllArgsConstructor
@@ -35,6 +37,13 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonManagedReference(value = "orders_users")
     List<Order> orders;
+
+    public User(int id, String email, String password, String country) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.country = country;
+    }
 
     public User(String email, String password, String country) {
         this.email = email;
