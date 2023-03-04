@@ -16,7 +16,7 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    public ProductController(UserService userService, ProductService productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
@@ -24,17 +24,5 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<List<Product>> findAllProducts() {
         return ResponseEntity.ok(productService.findAll());
-    }
-
-    @PostMapping("/addTestProducts")
-    public ResponseEntity<List<Product>> addProduct() {
-        List<Product> productList = new ArrayList<>();
-        productList.add(new Product(1, "Product 1", 10));
-        productList.add(new Product(2, "Product 2", 20));
-        productList.add(new Product(3, "Product 3", 30));
-        productList.add(new Product(4, "Product 4", 40));
-        productList.add(new Product(5, "Product 5", 50));
-
-        return ResponseEntity.ok(productService.saveAll(productList));
     }
 }
