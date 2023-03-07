@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin("*")
+@CrossOrigin(origins = {"http://localhost:4200"}, allowCredentials = "true")
 public class UserController {
     private final UserService userService;
 
@@ -44,5 +44,15 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) throws ExistingUserException {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDto> me(HttpSession session) {
+        if (session.getAttribute("user") != null) {
+            UserDto userDto = (UserDto) session.getAttribute("user");
+            return ResponseEntity.ok(userDto);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

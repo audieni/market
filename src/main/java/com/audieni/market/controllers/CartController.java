@@ -13,14 +13,13 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/carts")
-@CrossOrigin("*")
+@CrossOrigin(origins = {"http://localhost:4200"}, allowCredentials = "true")
 public class CartController {
     private final UserService userService;
     private final ProductService productService;

@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
-@CrossOrigin("*")
+@CrossOrigin(origins = {"http://localhost:4200"}, allowCredentials = "true")
 public class OrderController {
     private final UserService userService;
     private final CartService cartService;
