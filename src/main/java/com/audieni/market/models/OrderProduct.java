@@ -3,11 +3,9 @@ package com.audieni.market.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
 @Entity
 @AllArgsConstructor
@@ -15,9 +13,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "orders_products")
 public class OrderProduct {
     @Id
-    @Column
+    @Column(name = "order_product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int orderProductId;
 
     @Column
     private int stock;

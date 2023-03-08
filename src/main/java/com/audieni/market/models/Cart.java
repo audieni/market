@@ -3,11 +3,9 @@ package com.audieni.market.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
 @Entity
 @AllArgsConstructor
@@ -15,9 +13,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "carts")
 public class Cart {
     @Id
-    @Column
+    @Column(name = "cart_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int cartId;
 
     @Column
     private int stock;
@@ -36,5 +34,13 @@ public class Cart {
         this.user = user;
         this.product = product;
         this.stock = stock;
+    }
+
+    public int getUserId() {
+        return user.getUserId();
+    }
+
+    public int getProductId() {
+        return product.getProductId();
     }
 }

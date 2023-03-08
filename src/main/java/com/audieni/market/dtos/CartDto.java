@@ -18,6 +18,12 @@ public class CartDto {
     private UserService userService;
     private ProductService productService;
 
+    public CartDto(int userId, int productId, int stock) {
+        this.userId = userId;
+        this.productId = productId;
+        this.stock = stock;
+    }
+
     public User getUser() {
         return userService.findById(this.userId);
     }

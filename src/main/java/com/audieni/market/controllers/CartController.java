@@ -2,6 +2,7 @@ package com.audieni.market.controllers;
 
 import com.audieni.market.annotations.Authorized;
 import com.audieni.market.dtos.CartDto;
+import com.audieni.market.dtos.ProductDto;
 import com.audieni.market.dtos.UserDto;
 import com.audieni.market.models.Cart;
 import com.audieni.market.models.Product;
@@ -37,7 +38,7 @@ public class CartController {
         if (session.getAttribute("user") != null) {
             UserDto userDto = (UserDto) session.getAttribute("user");
             User user = userService.findByEmail(userDto.getEmail());
-            return ResponseEntity.ok(cartService.findByUserId(user.getId()));
+            return ResponseEntity.ok(cartService.findByUserId(user.getUserId()));
         }
 
         return ResponseEntity.badRequest().build();
@@ -45,21 +46,27 @@ public class CartController {
 
     @Authorized
     @PostMapping("/add")
-    public ResponseEntity<Cart> addProductToCart(HttpSession session, @RequestBody Map<String, Integer> productInfo) {
-        int productId = productInfo.get("productId");
-        int stock = productInfo.get("stock");
+    public ResponseEntity<Cart> addProductToCart(HttpSession session, @RequestBody ProductDto productInfo) {
+        int productId = productInfo.getProductId();
+        int stock = productInfo.getStock();
+
+        System.out.println("a" + productId);
 
         if (session.getAttribute("user") != null) {
             UserDto userDto = (UserDto) session.getAttribute("user");
             User user = userService.findByEmail(userDto.getEmail());
 
-            if (cartService.findByUserIdAndProductId(user.getId(), productId).isPresent()) {
-                Optional<Cart> product = cartService.findByUserIdAndProductId(user.getId(), productId);
-                product.get().setStock(stock);
-                return ResponseEntity.ok(cartService.save(product.get()));
+            System.out.println("b");
+
+            if (cartService.findByUserIdAndProductId(user.getUserId(), productId).isPresent()) {
+                Optional<Cart> cart = cartService.findByUserIdAndProductId(user.getUserId(), productId);
+                cart.get().setStock(stock);
+                System.out.println("c" + cart.get().getProduct().getProductId());
+                return ResponseEntity.ok(cartService.save(cart.get()));
             } else {
-                CartDto cart = new CartDto(user.getId(), productId, stock, userService, productService);
+                CartDto cart = new CartDto(user.getUserId(), productId, stock, userService, productService);
                 Product product = productService.findById(productId);
+                System.out.println("d" + product.getProductId());
                 return ResponseEntity.ok(cartService.save(new Cart(cart.getUser(), product, stock)));
             }
         }

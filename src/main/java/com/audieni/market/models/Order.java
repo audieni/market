@@ -5,13 +5,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Builder
 @Data
 @Entity
 @AllArgsConstructor
@@ -19,9 +17,9 @@ import java.util.List;
 @Table(name = "orders")
 public class Order {
     @Id
-    @Column
+    @Column(name = "order_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int orderId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "orders_users")

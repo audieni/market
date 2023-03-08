@@ -1,5 +1,6 @@
 package com.audieni.market.services;
 
+import com.audieni.market.dtos.CartDto;
 import com.audieni.market.models.Cart;
 import com.audieni.market.repositories.CartRepository;
 import org.junit.jupiter.api.Assertions;
@@ -23,6 +24,12 @@ class CartServiceTests {
     private List<Cart> mockCartList;
 
     @Mock
+    private CartDto mockCartDto;
+
+    @Mock
+    private List<CartDto> mockCartDtoList;
+
+    @Mock
     CartRepository mockCartRepository;
 
     private final int userId = 1;
@@ -31,9 +38,9 @@ class CartServiceTests {
     @Test
     void findByUserIdTest() {
         sut = new CartService(mockCartRepository);
-        Mockito.when(mockCartRepository.findByUserId(userId)).thenReturn(Optional.of(mockCartList));
-        Optional<List<Cart>> cart = sut.findByUserId(userId);
-        Assertions.assertEquals(Optional.of(mockCartList), cart);
+        Mockito.when(mockCartRepository.findByUserId(userId)).thenReturn(Optional.of(mockCartDtoList));
+        Optional<List<CartDto>> cartDto = sut.findByUserId(userId);
+        Assertions.assertEquals(Optional.of(mockCartList), cartDto);
     }
 
     @Test
@@ -56,7 +63,7 @@ class CartServiceTests {
     @Test
     void deleteTest() {
         sut = new CartService(mockCartRepository);
-        sut.delete(mockCart);
-        Mockito.verify(mockCartRepository).delete(mockCart);
+        sut.delete(mockCartDto);
+        Mockito.verify(mockCartRepository).delete(mockCartDto);
     }
 }

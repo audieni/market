@@ -3,13 +3,11 @@ package com.audieni.market.models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Builder
 @Data
 @Entity
 @AllArgsConstructor
@@ -17,9 +15,9 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     @Id
-    @Column
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int userId;
 
     @Column(unique = true)
     private String email;
@@ -38,8 +36,8 @@ public class User {
     @JsonManagedReference(value = "orders_users")
     List<Order> orders;
 
-    public User(int id, String email, String password, String country) {
-        this.id = id;
+    public User(int userId, String email, String password, String country) {
+        this.userId = userId;
         this.email = email;
         this.password = password;
         this.country = country;
