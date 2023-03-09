@@ -22,7 +22,6 @@ public class UserService {
 
     public UserDto authenticate(String email, String password) throws InvalidCredentialsException {
         Optional<User> user = userRepository.findByEmail(email);
-
         if (user.isPresent() && user.get().getPassword().equals(password)) {
             return new UserDto(user.get());
         } else {

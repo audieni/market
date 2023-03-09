@@ -7,7 +7,6 @@ import com.audieni.market.dtos.UserDto;
 import com.audieni.market.models.*;
 import com.audieni.market.services.CartService;
 import com.audieni.market.services.OrderService;
-import com.audieni.market.services.ProductService;
 import com.audieni.market.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
@@ -22,27 +21,24 @@ import java.util.Optional;
 @CrossOrigin(origins = {"http://localhost:4200"}, allowCredentials = "true")
 public class OrderController {
     private final UserService userService;
-    private final ProductService productService;
     private final CartService cartService;
     private final OrderService orderService;
 
-    public OrderController(UserService userService, ProductService productService, CartService cartService,
+    public OrderController(UserService userService, CartService cartService,
                            OrderService orderService) {
         this.userService = userService;
-        this.productService = productService;
         this.cartService = cartService;
         this.orderService = orderService;
     }
 
     @Authorized
     @GetMapping
-    public ResponseEntity<Optional<List<Order>>> findOrders(HttpSession session) {
+    public ResponseEntity<List<Order>> findOrders(HttpSession session) {
         if (session.getAttribute("user") != null) {
             UserDto userDto = (UserDto) session.getAttribute("user");
             User user = userService.findByEmail(userDto.getEmail());
-            return ResponseEntity.ok(orderService.findByUserId(user.getUserId()));
+            return ResponseEntity.ok(orderService.findByUserId(user.getUserId()).orElse(new ArrayList<>()));
         }
-
         return ResponseEntity.badRequest().build();
     }
 
@@ -71,7 +67,16 @@ public class OrderController {
                 return ResponseEntity.ok(orderService.save(order.toOrder()));
             }
         }
+        return ResponseEntity.badRequest().build();
+    }
 
+    @Authorized
+    @GetMapping("/{orderId}")
+    public ResponseEntity<Optional<List<OrderProduct>>> findProducts(HttpSession session,
+                                                                     @PathVariable("orderId") int orderId) {
+        if (session.getAttribute("user") != null) {
+            return ResponseEntity.ok(orderService.findByOrderId(orderId));
+        }
         return ResponseEntity.badRequest().build();
     }
 }

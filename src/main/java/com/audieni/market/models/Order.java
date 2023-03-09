@@ -22,7 +22,7 @@ public class Order {
     private int orderId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "orders_users")
+    @JoinColumn(name = "user_id")
     @JsonBackReference(value = "orders_users")
     @JsonProperty
     private User user;

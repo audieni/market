@@ -43,4 +43,16 @@ public class Cart {
     public int getProductId() {
         return product.getProductId();
     }
+
+    public String getProductName() {
+        return product.getName();
+    }
+
+    public String getProductImage() {
+        return product.getImage();
+    }
+
+    public double getProductPrice() {
+        return product.getPrice();
+    }
 }

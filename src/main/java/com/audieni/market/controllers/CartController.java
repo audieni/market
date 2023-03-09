@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -40,7 +39,6 @@ public class CartController {
             User user = userService.findByEmail(userDto.getEmail());
             return ResponseEntity.ok(cartService.findByUserId(user.getUserId()));
         }
-
         return ResponseEntity.badRequest().build();
     }
 
@@ -50,27 +48,20 @@ public class CartController {
         int productId = productInfo.getProductId();
         int stock = productInfo.getStock();
 
-        System.out.println("a" + productId);
-
         if (session.getAttribute("user") != null) {
             UserDto userDto = (UserDto) session.getAttribute("user");
             User user = userService.findByEmail(userDto.getEmail());
+            Optional<Cart> cart = cartService.findByUserIdAndProductId(user.getUserId(), productId);
 
-            System.out.println("b");
-
-            if (cartService.findByUserIdAndProductId(user.getUserId(), productId).isPresent()) {
-                Optional<Cart> cart = cartService.findByUserIdAndProductId(user.getUserId(), productId);
+            if (cart.isPresent()) {
                 cart.get().setStock(stock);
-                System.out.println("c" + cart.get().getProduct().getProductId());
                 return ResponseEntity.ok(cartService.save(cart.get()));
             } else {
-                CartDto cart = new CartDto(user.getUserId(), productId, stock, userService, productService);
+                CartDto cartDto = new CartDto(user.getUserId(), productId, stock, userService, productService);
                 Product product = productService.findById(productId);
-                System.out.println("d" + product.getProductId());
-                return ResponseEntity.ok(cartService.save(new Cart(cart.getUser(), product, stock)));
+                return ResponseEntity.ok(cartService.save(new Cart(cartDto.getUser(), product, stock)));
             }
         }
-
         return ResponseEntity.badRequest().build();
     }
 }

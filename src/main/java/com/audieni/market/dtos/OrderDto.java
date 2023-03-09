@@ -27,7 +27,6 @@ public class OrderDto {
 
         order.setUser(this.user);
         order.setOrderProduct(productList);
-
         return order;
     }
 }

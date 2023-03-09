@@ -22,17 +22,13 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody UserInfo userInfo, HttpSession session)
             throws InvalidCredentialsException {
         Optional<UserDto> user = Optional.of(userService.authenticate(userInfo.getEmail(), userInfo.getPassword()));
-
-        if (user.isPresent()) {
-            session.setAttribute("user", user.get());
-            return ResponseEntity.ok(user.get());
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        session.setAttribute("user", user.get());
+        return ResponseEntity.ok(user.get());
     }
 
     @PostMapping("/logout")

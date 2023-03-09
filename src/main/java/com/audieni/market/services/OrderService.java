@@ -27,11 +27,12 @@ public class OrderService {
         return orderRepository.findByUserId(userId);
     }
 
-    public Order save(Order order) {
-        for (OrderProduct orderProduct : order.getOrderProduct()) {
-            orderProductRepository.save(orderProduct);
-        }
+    public Optional<List<OrderProduct>> findByOrderId(int orderId) {
+        return orderProductRepository.findByOrderId(orderId);
+    }
 
+    public Order save(Order order) {
+        orderProductRepository.saveAll(order.getOrderProduct());
         return orderRepository.save(order);
     }
 }
