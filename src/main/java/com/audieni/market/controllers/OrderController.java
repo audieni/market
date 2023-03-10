@@ -50,6 +50,11 @@ public class OrderController {
         return ResponseEntity.badRequest().build();
     }
 
+    /**
+     * Create new order with products in user's cart
+     * @param session Http session containing user info
+     * @return Response with newly created order
+     */
     @Authorized
     @PostMapping("/add")
     public ResponseEntity<Order> createOrder(HttpSession session) {
@@ -78,6 +83,12 @@ public class OrderController {
         return ResponseEntity.badRequest().build();
     }
 
+    /**
+     * Get list of products in order by ID
+     * @param session Http session containing user info
+     * @param orderId Order ID according to database
+     * @return Response with all products in order with Order ID
+     */
     @Authorized
     @GetMapping("/{orderId}")
     public ResponseEntity<Optional<List<OrderProduct>>> findProducts(HttpSession session,

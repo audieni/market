@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Order service to handle requests between controllers and repositories
+ */
 @Service
 @Transactional
 public class OrderService {
@@ -23,14 +26,29 @@ public class OrderService {
         this.orderProductRepository = orderProductRepository;
     }
 
+    /**
+     * Find list of orders by user id
+     * @param userId User ID
+     * @return Optional of list of orders by user id
+     */
     public Optional<List<Order>> findByUserId(int userId) {
         return orderRepository.findByUserId(userId);
     }
 
+    /**
+     * Find list of products by order ID
+     * @param orderId Order ID
+     * @return Optional of list of products by order ID
+     */
     public Optional<List<OrderProduct>> findByOrderId(int orderId) {
         return orderProductRepository.findByOrderId(orderId);
     }
 
+    /**
+     * Save information about new orders
+     * @param order Order object
+     * @return Newly saved order
+     */
     public Order save(Order order) {
         orderProductRepository.saveAll(order.getOrderProduct());
         return orderRepository.save(order);

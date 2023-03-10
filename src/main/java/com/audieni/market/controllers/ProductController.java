@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Product Controller to handle HTTP requests
+ */
 @RestController
 @RequestMapping("/products")
 @CrossOrigin(origins = {"http://localhost:4200", "http://129.80.51.149"}, allowCredentials = "true")
@@ -18,6 +21,10 @@ public class ProductController {
         this.productService = productService;
     }
 
+    /**
+     * Find a list of all products in database
+     * @return Response with list of all products in database
+     */
     @Authorized
     @GetMapping
     public ResponseEntity<List<Product>> findAllProducts() {
