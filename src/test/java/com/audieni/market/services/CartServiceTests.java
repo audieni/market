@@ -38,8 +38,8 @@ class CartServiceTests {
     @Test
     void findByUserIdTest() {
         sut = new CartService(mockCartRepository);
-        Mockito.when(mockCartRepository.findByUserId(userId)).thenReturn(Optional.of(mockCartDtoList));
-        Optional<List<CartDto>> cartDto = sut.findByUserId(userId);
+        Mockito.when(mockCartRepository.findByUserId(userId)).thenReturn(Optional.of(mockCartList));
+        Optional<List<Cart>> cartDto = sut.findByUserId(userId);
         Assertions.assertEquals(Optional.of(mockCartList), cartDto);
     }
 
@@ -63,7 +63,7 @@ class CartServiceTests {
     @Test
     void deleteTest() {
         sut = new CartService(mockCartRepository);
-        sut.delete(mockCartDto);
-        Mockito.verify(mockCartRepository).delete(mockCartDto);
+        sut.delete(mockCart);
+        Mockito.verify(mockCartRepository).delete(mockCart);
     }
 }
