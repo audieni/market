@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Cart Controller to handle HTTP requests
+ */
 @RestController
 @RequestMapping("/carts")
-@CrossOrigin(origins = {"http://localhost:4200"}, allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:4200", "http://129.80.51.149"}, allowCredentials = "true")
 public class CartController {
     private final UserService userService;
     private final ProductService productService;
@@ -31,6 +34,11 @@ public class CartController {
         this.cartService = cartService;
     }
 
+    /**
+     * Finds all products in the user's cart
+     * @param session Http session containing user info
+     * @return Response with list of products in user's cart
+     */
     @Authorized
     @GetMapping
     public ResponseEntity<Optional<List<Cart>>> findAllCartProducts(HttpSession session) {
@@ -42,6 +50,12 @@ public class CartController {
         return ResponseEntity.badRequest().build();
     }
 
+    /**
+     * Add a product to user's cart
+     * @param session Http session containing user info
+     * @param productInfo Info about product in JSON form
+     * @return Response with the added product
+     */
     @Authorized
     @PostMapping("/add")
     public ResponseEntity<Cart> addProductToCart(HttpSession session, @RequestBody ProductDto productInfo) {

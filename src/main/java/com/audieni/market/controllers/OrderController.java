@@ -16,9 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Order Controller to handle HTTP request
+ */
 @RestController
 @RequestMapping("/orders")
-@CrossOrigin(origins = {"http://localhost:4200"}, allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:4200", "http://129.80.51.149"}, allowCredentials = "true")
 public class OrderController {
     private final UserService userService;
     private final CartService cartService;
@@ -31,6 +34,11 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+    /**
+     * Find all orders from user
+     * @param session Http session containing user info
+     * @return Response with a list of user's orders
+     */
     @Authorized
     @GetMapping
     public ResponseEntity<List<Order>> findOrders(HttpSession session) {
